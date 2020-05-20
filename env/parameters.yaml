@@ -1,0 +1,12 @@
+adminUser:
+  password: vault:llamawind/adminUser:password
+  username: admin
+dashboardUrl: https://dashboard.staging-jxaas.live
+enableDocker: false
+pipelineUser:
+  email: arcalos-admin@googlegroups.com
+  token: vault:llamawind/pipelineUser:token
+  username: cloudbees-ci-cd-staging[bot]
+prow:
+  hmacToken: vault:llamawind/prow:hmacToken
+segmentWriteKey: vault:llamawind:segmentWriteKey

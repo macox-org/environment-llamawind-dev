@@ -1,40 +1,105 @@
 autoUpdate:
   enabled: true
-  schedule: '0 0 * * *'
+  schedule: 0 0 * * *
+bootConfigURL: https://github.com/cloudbees/arcalos-boot-config.git
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  project: ""
+  azure: {}
+  chartRepository: http://bucketrepo/bucketrepo/charts/
+  clusterName: llamawind
+  environmentGitOwner: macox-org
+  environmentGitPublic: true
+  externalDNSSAName: llamawind-dn
+  gitKind: github
+  gitName: github
+  gitPublic: true
+  gitServer: https://github.com
+  gke:
+    projectNumber: "845594210148"
+  kanikoSAName: llamawind-ko
+  namespace: jx
+  project: cbjx-llamawind
   provider: gke
-  zone: ""
-gitops: true
-githubApp:
-  enabled: false
-  url: ""
-  schedule: '0 0 * * *'
+  registry: gcr.io
+  vaultName: llamawind
+  vaultSAName: llamawind-vt
+  zone: us-central1-c
 environments:
-- key: dev
-- key: staging
-- key: production
+- ingress:
+    cloud_dns_secret_name: external-dns-gcp-sa
+    domain: cbjx-llamawind.staging-jxaas.live
+    domainIssuerURL: https://jx-tenant-service-jx.mgmt.staging-jxaas.live
+    externalDNS: true
+    namespaceSubDomain: -jx.
+    tls:
+      email: jenkins-x@cloudbees.com
+      enabled: true
+      production: false
+  key: dev
+  repository: environment-llamawind-dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+  repository: environment-llamawind-staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
+  repository: environment-llamawind-production
+githubApp:
+  enabled: true
+  schedule: 0 0 * * *
+  url: https://lighthouse-githubapp-jx.mgmt.staging-jxaas.live
+gitops: true
 ingress:
-  domain: ""
+  cloud_dns_secret_name: external-dns-gcp-sa
+  domain: cbjx-llamawind.staging-jxaas.live
+  domainIssuerURL: https://jx-tenant-service-jx.mgmt.staging-jxaas.live
   externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
     email: jenkins-x@cloudbees.com
     enabled: true
     production: false
 kaniko: true
+repository: bucketrepo
 secretStorage: vault
 storage:
+  backup:
+    enabled: true
+    url: gs://cbjx-llamawind-backup
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://cbjx-llamawind-lts
   reports:
     enabled: false
     url: ""
   repository:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://cbjx-llamawind-repository
+vault:
+  aws: {}
+  bucket: cbjx-llamawind-vault
+  key: llamawind-7168e809b6ba-crypto-key
+  keyring: llamawind-7168e809b6ba-keyring
+  name: llamawind
+  serviceAccount: llamawind-vt
 velero:
   namespace: velero
-webhook: prow
+  schedule: ""
+  serviceAccount: llamawind-vo
+  ttl: ""
+versionStream:
+  ref: v0.0.443
+  url: https://github.com/cloudbees/arcalos-jenkins-x-versions.git
+webhook: lighthouse
