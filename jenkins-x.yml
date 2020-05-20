@@ -154,6 +154,7 @@ pipelineConfig:
             - falco
             command: jx
             dir: /workspace/source/systems/falco
+            name: install-falco
           - args:
             - step
             - helm
