@@ -151,6 +151,17 @@ pipelineConfig:
             - --remote
             - --no-vault
             - --name
+            - falco
+            command: jx
+            dir: /workspace/source/systems/falco
+          - args:
+            - step
+            - helm
+            - apply
+            - --boot
+            - --remote
+            - --no-vault
+            - --name
             - jx
             command: jx
             dir: /workspace/source/systems/cm
