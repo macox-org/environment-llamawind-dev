@@ -1,0 +1,5 @@
+dependencies:
+- alias: falco
+  condition: falco.enabled
+  name: falco
+  repository: https://kubernetes-charts.storage.googleapis.com
